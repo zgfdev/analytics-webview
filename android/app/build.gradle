@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 30
     buildToolsVersion "24.0.1"
     defaultConfig {
         applicationId "com.google.firebase.quickstart.analytics.webview"
-        minSdkVersion 9
-        targetSdkVersion 24
+        minSdkVersion 19
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -19,9 +19,11 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    //noinspection GradleCompatible,GradleCompatible
+    implementation 'com.android.support:appcompat-v7:24.1.1'
 
-    compile 'com.google.firebase:firebase-analytics:9.4.0'
+//    compile 'com.google.firebase:firebase-analytics:9.4.0'
+    implementation 'com.google.firebase:firebase-analytics:20.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -26,6 +26,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
+import java.util.ArrayList;
 
 import java.util.Iterator;
 
@@ -41,17 +43,17 @@ public class AnalyticsWebInterface {
 
     @JavascriptInterface
     public void logEvent(String name, String jsonParams) {
-        LOGD("logEvent:" + name);
+        LOG("logEvent:" + name);
         mAnalytics.logEvent(name, bundleFromJson(jsonParams));
     }
 
     @JavascriptInterface
     public void setUserProperty(String name, String value) {
-        LOGD("setUserProperty:" + name);
+        LOG("setUserProperty:" + name);
         mAnalytics.setUserProperty(name, value);
     }
 
-    private void LOGD(String message) {
+    private void LOG(String message) {
         // Only log on debug builds, for privacy
         if (BuildConfig.DEBUG) {
             Log.d(TAG, message);
@@ -79,8 +81,35 @@ public class AnalyticsWebInterface {
                     result.putInt(key, (Integer) value);
                 } else if (value instanceof Double) {
                     result.putDouble(key, (Double) value);
+                }else if (value instanceof JSONArray) {
+                    JSONArray items = (JSONArray) value;
+                    ArrayList itemBundleList = new ArrayList();
+
+                    for (int i = 0; i < items.length(); i++) {
+                        Bundle itemBundle = new Bundle();
+                        JSONObject itemParams = items.getJSONObject(i);
+                        Iterator<String> itemKeys = itemParams.keys();
+
+                        while (itemKeys.hasNext()) {
+                            String itemKey = itemKeys.next();
+                            Object itemValue = itemParams.get(itemKey);
+                            if (itemValue instanceof String) {
+                                itemBundle.putString(itemKey, (String) itemValue);
+                            } else if (itemValue instanceof Integer) {
+                                itemBundle.putInt(itemKey, (Integer) itemValue);
+                            } else if (itemValue instanceof Double) {
+                                itemBundle.putDouble(itemKey, (Double) itemValue);
+                            } else if (itemValue instanceof Long) {
+                                itemBundle.putLong(itemKey, (Long) itemValue);
+                            }
+                        }
+
+                        itemBundleList.add(itemBundle);
+                    }
+
+                    result.putParcelableArrayList(key, itemBundleList);
                 } else {
-                    Log.w(TAG, "Value for key " + key + " not one of [String, Integer, Double]");
+                    Log.w(TAG, "Value for key " + key + " seems not ok");
                 }
             }
         } catch (JSONException e) {
