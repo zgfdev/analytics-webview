@@ -22,12 +22,12 @@ function logEvent(name, params) {
     }
   
     if (window.AnalyticsWebInterface) {
-      // Call Android interface
+      // Call Android interface; GA4 data stream type: Android App
       window.AnalyticsWebInterface.logEvent(name, JSON.stringify(params));
     } else if (window.webkit
         && window.webkit.messageHandlers
         && window.webkit.messageHandlers.firebase) {
-      // Call iOS interface
+      // Call iOS interface; GA4 data stream type: iOS App
       var message = {
         command: 'logEvent',
         name: name,
@@ -37,14 +37,13 @@ function logEvent(name, params) {
     } else {
       // No Android or iOS interface found
       console.log("No native APIs found.");
-      // deploy GA Measurement using gtm&dataLayer or gtag if needed
+      // deploy GA Measurement using gtm&dataLayer or gtag if needed; GA4 data stream type: Web
       var ceObj={
         event: name
       };
       if(Object.prototype.toString.call(params) === '[object Object]'){
         if(name=="custom_event"){
           params["event"]=name;
-          console.log('oblog_20220114','',params)
           dataLayer.push(params);
         }else{
           ceObj["ecommerce"]=params;
