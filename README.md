@@ -32,3 +32,9 @@ This sample is no longer actively maintained and is left here for reference only
     
   * Clicking on the buttons will produce log output in your
     running application.
+
+## fork and update /android & /faw on 20220117
++ download google-services.json(obtaining your own Firebase Android config) and move it into /android/app/
++ change hostingUrl in file MainActivity.java to your own site URL 
++ hosting /faw on your own site
++ run the Android app
