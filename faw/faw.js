@@ -134,7 +134,8 @@ function logEvent(name, params) {
       tipC: "0",
       tipC1: "holy",
       tipD: "0",
-      tipE: "2854"
+      tipE: "2854",
+      screen_name: "snTest0524" //if needed
      });
   });
   
