@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Restrict requests in the WebView to a single domain (in this case, our Firebase
         // Hosting domain) so that no other websites can call into our Java code.
-        String hostingUrl = "https://zgfdev.xyz/da/ga4/faw/";
+        String hostingUrl = "https://xxx.xxx.xxx/"; //webpages hosting something like /faw
 //        String hostingUrl = getHostingUrl();
         mWebView.setWebViewClient(new SingleDomainWebViewClient(hostingUrl));
 

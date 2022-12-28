@@ -16,6 +16,7 @@
 
 // [START log_event]
 function logEvent(name, params) {
+  params["obv"]="webview"; // Add public custom parameters
   console.log("%clogEvent "+name,'background:cyan;font-weight:bold;',JSON.stringify(params));
     if (!name) {
       return;
@@ -110,14 +111,13 @@ function logEvent(name, params) {
   // 发送事件
   /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
   document.getElementById("customEvent").addEventListener("click", function() {
-    logEvent("custom_event", { obv:"webview", epa: "v_epa", epb: "v_epb" });
+    logEvent("custom_event", { epa: "v_epa", epb: "v_epb" });
   });
   
   /*-++-++++=-++---+-=-++++---=-++++--+=-++++-+-=--+-+++-=-++---++=-++-++++=-++-++-+*/
   // screen_view
   document.getElementById("screenView").addEventListener("click", function() {
     logEvent("screen_view", { 
-      obv:"webview",
       cuserid: "test_cid",
       muserid: "test_mid",
       instance_id: "test_j2b4ezal",
@@ -142,7 +142,6 @@ function logEvent(name, params) {
   // view_item_list
   document.getElementById("viewItemList").addEventListener("click", function() {
     logEvent("view_item_list", {
-      obv:"webview", 
       item_list_id: "related_products",
       item_list_name: "Related products",
       items: [
@@ -174,7 +173,6 @@ function logEvent(name, params) {
   // add_to_cart
   document.getElementById("addToCart").addEventListener("click", function() {
     logEvent("add_to_cart", {
-      obv:"webview", 
       currency: "USD",
       value: 7.77,
       items: [
@@ -206,7 +204,6 @@ function logEvent(name, params) {
   // purchase
   document.getElementById("purchase").addEventListener("click", function() {
     logEvent("purchase", {
-      obv:"webview", 
       currency: "USD",
       transaction_id: "T_12345",
       value: 21.09,
